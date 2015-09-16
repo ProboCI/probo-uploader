@@ -6,6 +6,9 @@
   "scripts": {
     "test": "mocha"
   },
+  "bin": {
+    "probo-uploader": "./bin/probo-uploader"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/ProboCI/probo-uplaoder.git"
