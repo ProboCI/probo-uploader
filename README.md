@@ -2,12 +2,18 @@
 
 The probo uploader is a command line client for uploading files to
 [Probo.CI](probo.ci) or any server using the
-[Probo Asset Receiver](git@github.com:ProboCI/probo-uploader.git).
+[Probo Asset Receiver](https://github.com/ProboCI/probo-asset-receiver.git).
 
-The idea with the Probo Asset Receiver is 
+The idea with probo-uploader is to provide a simple and secure way to upload
+assets to a receiver from wherever they are generated. To this end the uploads
+are secured using a token that can be deleted at any time were the upload token
+to fall into enemy hands. Note that this client performs uploads and is incapable
+of downloading the files again. On probo.ci direct downloads are publicly available.
 
 
-For use with [Probo.CI](probo.ci) you need to go to your project page
+For use with [Probo.CI](probo.ci) you first need to go to your project page and
+generate an upload token. If you are using the asset receiver independently
+[see below](#self-hosted-receiver).
 
 
 ## Installation
@@ -38,11 +44,11 @@ directly to the asset receiver.
 mysqldump mydb | probo-uploader --token=[your token] --name=dev.sql
 ````
 
-### Uploading to your own Probo Asset Receiver
+### Uploading to your own Probo Asset Receiver <a name="self-hosted-receiver" />
 
 First you'll need to create an upload token either manually or from another system.
 A set of curl steps for performing this action is described in the documentation for the
-[Probo Asset Receiver](git@github.com:ProboCI/probo-uploader.git).
+[Probo Asset Receiver](https://github.com/ProboCI/probo-asset-receiver.git).
 
 ```` bash
 probo-uploader --token=bar --host=http://localhost:3000 somefile.txt
