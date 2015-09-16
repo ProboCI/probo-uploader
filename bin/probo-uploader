@@ -1,12 +1,16 @@
 #! /usr/bin/env node
-var client = require('../index'),
-    yargs = require('yargs');
+var UploadClient = require('../index').UploadClient,
+    yargs = require('yargs'),
+    fs = require('fs')
+    path = require('path')
+;
 
 yargs.usage('Usage: $0 --token [UPLOAD TOKEN] --name database.sql some_file.sql')
   .describe('help', 'Show this help message')
   .alias('help', 'h')
   .describe('host', 'The host to upload to (defaults to `https://upload.probo.ci`)')
   .alias('host', 'H')
+  .default('host', 'https://upload.probo.ci')
   .describe('name', 'The name of the file asset to store (defaults to the file name if a file is specified by name).')
   .alias('name', 'n')
   .describe('token', 'An existing upload token allowing this request.')
@@ -17,4 +21,43 @@ if (argv.help) {
   yargs.showHelp();
 }
 
+if (argv._[0]) {
+  var filePath = argv._[0];
+  try {
+    var stat = fs.statSync(filePath);
+    if (stat.isDirectory()) {
+      console.error('Directories are not yet supported.');
+      process.exit(1);
+    }
+    // Use the actual filename if a file is given and no name is explicitly set.
+    if (!argv.name) {
+      argv.name = path.basename(filePath);
+    }
+  }
+  catch (e) {
+    if (!stat) {
+      console.error('File could not be loaded.', filePath);
+      process.exit(1);
+    }
+  }
+}
+
+client = new UploadClient(argv);
+
+var handleUpload = function(error, response) {
+  if (error) {
+    console.error(error.message);
+    process.exit(1);
+  }
+  console.log('Upload successful.');
+};
+
+// If a file was provided as an argument stream it.
+if (filePath) {
+  client.uploadFile(argv._[0], handleUpload);
+}
+// Otherwise assume we are reading from stdin.
+else {
+  client.uploadStream(process.stdin, handleUpload);
+}
 
