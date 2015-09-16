@@ -1,0 +1,20 @@
+#! /usr/bin/env node
+var client = require('../index'),
+    yargs = require('yargs');
+
+yargs.usage('Usage: $0 --token [UPLOAD TOKEN] --name database.sql some_file.sql')
+  .describe('help', 'Show this help message')
+  .alias('help', 'h')
+  .describe('host', 'The host to upload to (defaults to `https://upload.probo.ci`)')
+  .alias('host', 'H')
+  .describe('name', 'The name of the file asset to store (defaults to the file name if a file is specified by name).')
+  .alias('name', 'n')
+  .describe('token', 'An existing upload token allowing this request.')
+  .alias('token', 't');
+var argv = yargs.argv;
+
+if (argv.help) {
+  yargs.showHelp();
+}
+
+
