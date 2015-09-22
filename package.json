@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/ProboCI/probo-uplaoder.git"
+    "url": "git+ssh://git@github.com/ProboCI/probo-uploader.git"
   },
   "author": "Howard Tyson <howard@howardtyson.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ProboCI/probo-uplaoder/issues"
+    "url": "https://github.com/ProboCI/probo-uploader/issues"
   },
-  "homepage": "https://github.com/ProboCI/probo-uplaoder#readme",
+  "homepage": "https://github.com/ProboCI/probo-uploader#readme",
   "devDependencies": {
     "istanbul": "^0.3.20",
     "mocha": "^2.3.2",
