@@ -1,6 +1,6 @@
 {
   "name": "probo-uploader",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A CLI client for uploading assets to probo.ci for use in builds.",
   "main": "index.js",
   "scripts": {
