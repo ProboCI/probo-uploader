@@ -1,7 +1,8 @@
 #! /usr/bin/env node
 var UploadClient = require('../index').UploadClient,
     yargs = require('yargs'),
-    fs = require('fs')
+    chalk = require('chalk'),
+    fs = require('fs'),
     path = require('path')
 ;
 
@@ -28,7 +29,7 @@ if (argv._[0]) {
   try {
     var stat = fs.statSync(filePath);
     if (stat.isDirectory()) {
-      console.error('Directories are not yet supported.');
+      console.error(chalk.red('Error:') + ' Directories are not yet supported.');
       process.exit(1);
     }
     // Use the actual filename if a file is given and no name is explicitly set.
@@ -38,14 +39,14 @@ if (argv._[0]) {
   }
   catch (e) {
     if (!stat) {
-      console.error('File could not be loaded.', filePath);
+      console.error(chalk.red('Error:') + ' File could not be found. Does it exist? Do we have permission to read it?', filePath);
       process.exit(1);
     }
   }
 }
 else {
   if (!argv.name) {
-    console.error('When using the streaming interface you must name your build asset.');
+    console.error(chalk.red('Error:') + ' When using the streaming interface you must name your build asset.');
     process.exit(1);
   }
 }
