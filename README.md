@@ -44,6 +44,22 @@ directly to the asset receiver.
 mysqldump mydb | probo-uploader --token=[your token] --name=dev.sql
 ````
 
+### Uploading a file stream and monitoring progress
+
+If you want to keep track of the progress of your upload you can use the pipeview command.
+
+#### Installing pipeview on MacOSX via Homebrew
+
+```` bash
+brew install pv
+````
+
+#### Using pipeview
+
+```` bash
+pv [database file] | probo-uploader --token=[your token] --name=[filename on probo]
+````
+
 ### Uploading to your own Probo Asset Receiver <a name="self-hosted-receiver" />
 
 First you'll need to create an upload token either manually or from another system.
