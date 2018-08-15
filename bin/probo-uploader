@@ -32,13 +32,21 @@ if (argv.help) {
   process.exit(0);
 }
 
-if (
-  typeof argv.token !== 'string' ||
-  argv.token.indexOf('=') > -1
-) {
+function throwTokenReadError() {
   console.error(chalk.red('Error:') + ' Could not read token.');
   yargs.showHelp();
   process.exit(1);
+}
+
+if (typeof argv.token !== 'string') {
+  throwTokenReadError();
+} else {
+  if (
+    argv.token.indexOf('=') > -1 ||
+    !argv.token.match(/^[a-zA-Z0-9]{8}\-([a-zA-Z0-9]{4}\-){3}[a-zA-Z0-9]{12}$/)
+  ) {
+    throwTokenReadError();
+  }
 }
 
 if (argv._[0]) {
