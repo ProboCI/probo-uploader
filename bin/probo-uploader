@@ -6,17 +6,25 @@ var UploadClient = require('../index').UploadClient,
     path = require('path')
 ;
 
-yargs.usage('Usage: $0 --token [UPLOAD TOKEN] --name database.sql some_file.sql')
-  .describe('help', 'Show this help message')
-  .alias('help', 'h')
-  .describe('host', 'The host to upload to (defaults to `https://upload.probo.ci`)')
-  .alias('host', 'H')
-  .default('host', 'https://upload.probo.ci')
-  .describe('name', 'The name of the file asset to store (defaults to the file name if a file is specified by name).')
-  .alias('name', 'n')
-  .describe('token', 'An existing upload token allowing this request.')
-  .demand('token')
-  .alias('token', 't');
+yargs
+  .usage('Usage: $0 --token [UPLOAD TOKEN] --name database.sql some_file.sql')
+  .options({
+    'host': {
+      alias: 'H',
+      describe: 'The host to upload to (defaults to `https://upload.probo.ci`)',
+      default: 'https://upload.probo.ci'
+    },
+    'name': {
+      alias: 'n',
+      describe: 'The name of the file asset to store (defaults to the file name if a file is specified by name).'
+    },
+    'token': {
+      alias: 't',
+      describe: 'An existing upload token allowing this request.',
+      demandOption: true
+    }
+  })
+  .help();
 var argv = yargs.argv;
 
 if (argv.help) {
